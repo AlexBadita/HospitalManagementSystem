@@ -32,9 +32,10 @@ AUTH_USER_MODEL = 'accounts.User'
 # Application definition
 
 INSTALLED_APPS = [
-    'hospital_app.apps.HospitalAppConfig',
-    'accounts.apps.AccountsConfig',
+    'hospital_app',
+    'accounts',
     'crispy_forms',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,6 +125,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+AUTH_USER_MODEL = 'accounts.Account'
 
 LOGIN_REDIRECT_URL = 'hospital-home'
 

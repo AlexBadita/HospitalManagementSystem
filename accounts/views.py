@@ -1,22 +1,22 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import PatientRegisterForm
+from .forms import RegistrationForm
 
 
 def register(request):
     if request.method == 'POST':
-        form = PatientRegisterForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            first_name = form.cleaned_data.get('first_name')
-            last_name = form.cleaned_data.get('last_name')
-            #messages.success(request, f'Account created for {first_name} {last_name}!')
-            messages.success(request, f'Your account has been created!')
-            return redirect('login')
+            email = form.cleaned_data.get('email').lower()
+            raw_password = form.cleaned_data.get('password1')
+            account = authenticate(email=email, password=raw_password)
+            login(request, account)
+            return redirect("hospital-home")
     else:
-        form = PatientRegisterForm()
-    return render(request, 'accounts/register.html', {'form': form})
+        form = RegistrationForm()
+    return render(request, 'accounts/register.html', {'registration_form': form})
 
 
 @login_required
