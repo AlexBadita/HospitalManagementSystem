@@ -1,0 +1,44 @@
+{% extends "hospital_app/base.html" %}
+{% block title %}
+<title>View Doctors</title>
+{% endblock title %}
+{% block content %}
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <h2 class="text-center">ALL DOCTORS</h2>
+        <section id="team" class="pb-5">
+            <div class="container">
+                <table class="table" id="example">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Specialization</th>
+                        <th>Opening Hour</th>
+                        <th>Closing Hour</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.account.first_name }}</td>
+                        <td>{{ doctor.account.last_name }}</td>
+                        <td>{{ doctor.account.email }}</td>
+                        <td>{{ doctor.specialization }}</td>
+                        <td>{{ doctor.opening_hour }}</td>
+                        <td>{{ doctor.closing_hour }}</td>
+                        <td>
+                            <a href="{% url 'delete_doctor' doctor.account_id%}"
+                               onclick="return confirm('Are you sure you want to delete?')" class="btn btn-info">
+                                Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock content %}

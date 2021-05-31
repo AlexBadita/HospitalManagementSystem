@@ -1,20 +1,19 @@
 {% extends "hospital_app/base.html" %}
 {% load crispy_forms_tags %}
 {% block title %}
-<title>Profile</title>
+<title>Add Doctor</title>
 {% endblock title %}
 {% block content %}
 <div class="content-section">
   <form method="post">
     {% csrf_token %}
     <fieldset class="form-group">
-      <h2 class="border-bottom mb-4 text-center">Profile</h2>
-      {{ user_form|crispy }}
-      {{ patient_form|crispy }}
+      <legend class="border-bottom mb-4">Add Doctor</legend>
+      {{ add_doctor_from|crispy }}
     </fieldset>
     <div class="form-group">
       <button class="btn btn-outline-info" type="submit">
-        Update
+        Add
       </button>
     </div>
   </form>

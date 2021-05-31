@@ -15,3 +15,6 @@ class AccountAdmin(UserAdmin):
 
 
 admin.site.register(Account, AccountAdmin)
+admin.site.register(Patient)
+admin.site.register(Doctor)
+admin.site.register(Appointment)

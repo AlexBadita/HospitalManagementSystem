@@ -1,0 +1,59 @@
+{% extends "hospital_app/base.html" %}
+{% block title %}
+<title>Appointments</title>
+{% endblock title %}
+{% block content %}
+<div class="page-content-wrapper">
+  <div class="container-fluid">
+    <div class="row register-form">
+      <div class="col-md-8 offset-md-2 text-center">
+        <form class="custom-form" method="post">
+          {% csrf_token %}
+          <h1 class="border-bottom pb-2 mb-4">Make Appointments</h1>
+          <div class="form-row form-group">
+            <div class="col-sm-4 label-column">
+              <label class="col-form-label">Doctor's Name & Field</label>
+            </div>
+            <div class="col-sm-6 input-column">
+              <select class="form-control" name="doctor_id">
+                {% for doctor in doctors %}
+                <option value="{{ doctor.account_id }}">
+                  {{doctor.account.first_name}} {{doctor.account.last_name}} {{doctor.specialization}}
+                  [{{doctor.opening_hour}} - {{doctor.closing_hour}}]
+                </option>
+                {{doctor.opening_hour}} {{doctor.closing_hour}}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-row form-group">
+            <div class="col-sm-4 label-column"><label class="col-form-label">Appointment Date</label></div>
+            <div class="col-sm-6 input-column">
+              <input class="form-control" type="date" name="date" required="">
+            </div>
+          </div>
+          <div class="form-row form-group">
+            <div class="col-sm-4 label-column"><label class="col-form-label">Appointment Time</label></div>
+            <div class="col-sm-6 input-column">
+              <input class="form-control" type="time" name="time" required="">
+            </div>
+          </div>
+          <button class="btn btn-outline-info submit-button" type="submit">Make Appointment</button></form>
+      </div>
+    </div>
+  </div>
+</div>
+{% ifequal error "no" %}
+<script type="text/javascript">
+    alert('Appointment Booked Sucessfully..........')
+    window.location = ('{% url 'make_appointments' %}')
+</script>
+{% endifequal%}
+
+{% ifequal error "yes" %}
+<script type="text/javascript">
+    /*alert('{{e}}')*/
+    alert('Something gone wrong....')
+</script>
+{% endifequal%}
+{% endblock content %}

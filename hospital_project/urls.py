@@ -24,5 +24,13 @@ urlpatterns = [
     path('profile/', accounts_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='accounts/logout.html'), name='logout'),
+    path('make_appointments/', accounts_views.make_appointments, name='make_appointments'),
+    path('view_appointments/', accounts_views.view_appointments, name='view_appointments'),
+    path('PatientDeleteAppointment<int:aid>', accounts_views.delete_appointment, name='delete_appointment'),
+    path('admin_add_doctor/', accounts_views.add_doctor, name='add_doctor'),
+    path('admin_view_doctors/', accounts_views.view_doctors, name='view_doctors'),
+    path('adminDeleteDoctor<int:aid>', accounts_views.delete_doctor, name='delete_doctor'),
+    path('admin_view_patients/', accounts_views.view_patients, name='view_patients'),
+    path('adminDeletePatient<int:aid>', accounts_views.delete_patient, name='delete_patient'),
     path('', include('hospital_app.urls')),
 ]

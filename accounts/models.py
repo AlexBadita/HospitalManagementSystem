@@ -43,6 +43,8 @@ class Account(AbstractUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_patient = models.BooleanField(default=False)
+    is_doctor = models.BooleanField(default=False)
 
     objects = MyAccountManager()
 
@@ -57,3 +59,25 @@ class Account(AbstractUser):
 
     def has_module_perms(self, app_label):
         return self.is_superuser
+
+
+class Patient(models.Model):
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
+    phone_number = models.CharField(max_length=20, null=False)
+
+
+class Doctor(models.Model):
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
+    specialization = models.CharField(max_length=50)
+    opening_hour = models.TimeField()
+    closing_hour = models.TimeField()
+
+
+class Appointment(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    date = models.DateField()
+    time = models.TimeField()
+    diagnostic = models.TextField(max_length=500)
+    treatment = models.TextField(max_length=500)
+    status = models.BooleanField(default=False)

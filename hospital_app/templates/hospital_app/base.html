@@ -23,22 +23,52 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'hospital-home' %}">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'hospital-contact' %}">Contact</a>
-        </li>
         {% if user.is_authenticated %}
+        {% if user.is_patient %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'make_appointments' %}">Make Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_appointments' %}">View Appointments</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'profile' %}">Profile</a>
         </li>
+        {% endif %}
+        {% if user.is_doctor %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_appointments' %}">View Appointments</a>
+        </li>
+        {% endif %}
+        {% if user.is_superuser %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+          Doctors
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'add_doctor' %}">Add Doctor</a>
+            <a class="dropdown-item" href="{% url 'view_doctors' %}">View Doctors</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_patients' %}">Patients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view_appointments' %}">Appointments</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>
         {% endif %}
       </ul>

@@ -1,0 +1,113 @@
+{% extends "hospital_app/base.html" %}
+{% block title %}
+<title>Appointments</title>
+{% endblock title %}
+{% block content %}
+<div class="page-content-wrapper">
+    <div class="container-fluid">
+        <h2 class="text-center">UPCOMING APPOINTMENTS</h2>
+        {% for upcoming_appointment in upcoming_appointments %}
+        <div class="text-center mb-2" id="accordion{{ upcoming_appointment.id }}">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <a class="card-link" data-toggle="collapse" href="#collapse{{ upcoming_appointment.id }}">
+                            "{{ upcoming_appointment.patient.account.first_name }}
+                            {{ upcoming_appointment.patient.account.last_name }}"
+                            appointment with
+                            "{{ upcoming_appointment.doctor.account.first_name }}
+                            {{ upcoming_appointment.doctor.account.last_name }}"
+                            on {{ upcoming_appointment.date }}
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse{{ upcoming_appointment.id }}" class="collapse"
+                     data-parent="#accordion{{ upcoming_appointment.id }}">
+                    <div class="card-body">
+                        <table align="center" class="card-text" style="font-size: 19px;">
+                            <tr>
+                                <td>Doctor Name:</td>
+                                <td>{{ upcoming_appointment.doctor.account.first_name }}
+                                    {{ upcoming_appointment.doctor.account.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Patient Name:</td>
+                                <td>{{ upcoming_appointment.patient.account.first_name }}
+                                    {{ upcoming_appointment.patient.account.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Appointment Date:</td>
+                                <td>{{ upcoming_appointment.date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Appointment Time:</td>
+                                <td>{{ upcoming_appointment.time }}</td>
+                            </tr>
+                            <tr>
+                                <td>Delete Appointment:</td>
+                                <td><a href="{% url 'delete_appointment' upcoming_appointment.id %}"
+                                       onclick="return confirm('Are you sure you want to delete?')"
+                                       class="btn btn-info">Delete</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <h2 class="text-center border-top mt-4 pt-2">PREVIOUS APPOINTMENTS</h2>
+        {% for previous_appointment in previous_appointments %}
+        <div class="text-center mb-2" id="accordion-{{ previous_appointment.id }}">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <a class="card-link" data-toggle="collapse" href="#collapse-{{ previous_appointment.id }}">
+                            "{{ previous_appointment.patient.account.first_name }}
+                            {{ previous_appointment.patient.account.last_name }}"
+                            appointment with
+                            "{{ previous_appointment.doctor.account.first_name }}
+                            {{ previous_appointment.doctor.account.last_name }}"
+                            on {{ previous_appointment.date }}
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-{{ previous_appointment.id }}" class="collapse"
+                     data-parent="#accordion-{{ previous_appointment.id }}">
+                    <div class="card-body">
+                        <table align="center" class="card-text" style="font-size: 19px;">
+                            <tr>
+                                <td>Doctor Name:</td>
+                                <td>{{ previous_appointment.doctor.account.first_name }}
+                                    {{ previous_appointment.doctor.account.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Patient Name:</td>
+                                <td>{{ previous_appointment.patient.account.first_name }}
+                                    {{ previous_appointment.patient.account.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Appointment Date:</td>
+                                <td>{{ previous_appointment.date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Appointment Time:</td>
+                                <td>{{ previous_appointment.time }}</td>
+                            </tr>
+                            <tr>
+                                <td>Diagnostic:</td>
+                                <td>{{ previous_appointment.diagnostic }}</td>
+                            </tr>
+                            <tr>
+                                <td>Treatment:</td>
+                                <td>{{ previous_appointment.treatment }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
