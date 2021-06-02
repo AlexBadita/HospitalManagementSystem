@@ -38,7 +38,6 @@ class UpdateUserForm(forms.ModelForm):
 
 class UpdatePatientForm(forms.ModelForm):
     phone_number = forms.CharField(max_length=20)
-    cnp = forms.CharField(max_length=14)
 
     class Meta:
         model = Account
